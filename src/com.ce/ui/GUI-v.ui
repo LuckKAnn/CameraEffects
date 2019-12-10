@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1050</width>
+    <height>561</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>50</horstretch>
+    <verstretch>10</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>美颜相机</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>C:/Users/kunkun/.designer/backup/cam.ico</normaloff>C:/Users/kunkun/.designer/backup/cam.ico</iconset>
+  </property>
+  <property name="statusTip">
+   <string/>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>50</width>
+    <height>50</height>
+   </size>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 230);
+</string>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>110</y>
+      <width>631</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>用户名:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>40</y>
+      <width>321</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size:30px;</string>
+    </property>
+    <property name="text">
+     <string>欢迎使用人脸特效程序</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>291</x>
+      <y>30</y>
+      <width>161</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image:url(&quot;F:\icon.png&quot;)</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>200</y>
+      <width>631</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>密码:  </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_2"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>320</y>
+      <width>115</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>记住密码</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>357</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #fe6673;</string>
+    </property>
+    <property name="text">
+     <string>注册</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>357</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #0099CC;</string>
+    </property>
+    <property name="text">
+     <string>登录</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1050</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>操作</string>
+    </property>
+    <addaction name="action_5"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>功能</string>
+    </property>
+    <addaction name="actionAI"/>
+    <addaction name="action_17"/>
+    <addaction name="action_18"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_5"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>打开图片</string>
+   </property>
+   <property name="statusTip">
+    <string>打开图片</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="priority">
+    <enum>QAction::HighPriority</enum>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>保存图片</string>
+   </property>
+   <property name="statusTip">
+    <string>保存图片</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>高斯滤波</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>图像清晰</string>
+   </property>
+   <property name="statusTip">
+    <string>图像清晰</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>高斯滤波</string>
+   </property>
+   <property name="statusTip">
+    <string>高斯滤波</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>均值滤波</string>
+   </property>
+   <property name="statusTip">
+    <string>均值滤波</string>
+   </property>
+  </action>
+  <action name="actionLaplacian">
+   <property name="text">
+    <string>Laplacian</string>
+   </property>
+   <property name="statusTip">
+    <string>Laplacian</string>
+   </property>
+  </action>
+  <action name="actionSobel">
+   <property name="text">
+    <string>Sobel</string>
+   </property>
+   <property name="statusTip">
+    <string>Sobel</string>
+   </property>
+  </action>
+  <action name="actionPrewitt">
+   <property name="text">
+    <string>Prewitt</string>
+   </property>
+   <property name="statusTip">
+    <string>Prewitt</string>
+   </property>
+  </action>
+  <action name="action_9">
+   <property name="text">
+    <string>频域平滑</string>
+   </property>
+   <property name="statusTip">
+    <string>频域平滑</string>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="text">
+    <string>频域锐化</string>
+   </property>
+   <property name="statusTip">
+    <string>频域锐化</string>
+   </property>
+  </action>
+  <action name="action_11">
+   <property name="text">
+    <string>中值滤波</string>
+   </property>
+   <property name="statusTip">
+    <string>中值滤波</string>
+   </property>
+  </action>
+  <action name="action_12">
+   <property name="text">
+    <string>美白度选择</string>
+   </property>
+   <property name="statusTip">
+    <string>美白度选择</string>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="text">
+    <string>平滑度选择</string>
+   </property>
+   <property name="statusTip">
+    <string>平滑度选择</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>还原</string>
+   </property>
+   <property name="statusTip">
+    <string>还原</string>
+   </property>
+  </action>
+  <action name="action_8">
+   <property name="text">
+    <string>撤销</string>
+   </property>
+   <property name="statusTip">
+    <string>撤销</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+  </action>
+  <action name="action_14">
+   <property name="text">
+    <string>放大</string>
+   </property>
+   <property name="statusTip">
+    <string>放大</string>
+   </property>
+   <property name="shortcut">
+    <string>+</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="action_15">
+   <property name="text">
+    <string>缩小</string>
+   </property>
+   <property name="statusTip">
+    <string>缩小</string>
+   </property>
+   <property name="shortcut">
+    <string>-</string>
+   </property>
+  </action>
+  <action name="action_16">
+   <property name="text">
+    <string>截图</string>
+   </property>
+   <property name="statusTip">
+    <string>截图</string>
+   </property>
+  </action>
+  <action name="actionwo">
+   <property name="text">
+    <string>wo</string>
+   </property>
+  </action>
+  <action name="actionGamma">
+   <property name="text">
+    <string>Gamma变换</string>
+   </property>
+  </action>
+  <action name="actionAI">
+   <property name="text">
+    <string>AI换脸功能</string>
+   </property>
+  </action>
+  <action name="action_17">
+   <property name="text">
+    <string>图像处理功能</string>
+   </property>
+  </action>
+  <action name="action_18">
+   <property name="text">
+    <string>视频处理功能</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
