@@ -1,3 +1,7 @@
+"""
+    AI换脸主功能类
+"""
+
 from PyQt5 import Qt
 from PyQt5 import QtCore,QtWidgets,QtGui
 import sys
@@ -26,6 +30,12 @@ class AiMain(QMainWindow):
         self.ui.setupUi(self)
         self.TopbarAction_connect()
         self.action_connect()
+        # 目的图片
+        self.dstImg = None
+        # 源图片
+        self.srcImg = None
+        # 结果图片
+        self.ansImg = None
 
     # 信号槽绑定
     def TopbarAction_connect(self):
@@ -77,16 +87,16 @@ class AiMain(QMainWindow):
         if fname[0]:
             img_cv = cv2.imdecode(np.fromfile(fname[0], dtype=np.uint8), -1)  # 注意这里读取的是RGB空间的
             self.raw_image = img_cv
-            self.last_image = img_cv
-            self.current_img = img_cv
+            # self.last_image = img_cv
+            # self.current_img = img_cv
             if(buttonNumb==1): self.show_image_first()
             if (buttonNumb == 2): self.show_image_second()
-            if (buttonNumb == 3): self.show_image_third()
+            # if (buttonNumb == 3): self.show_image_third()
             self.imgskin = np.zeros(self.raw_image.shape)
 
     # 在第一个选框中现实载入的图片
     def show_image_first(self):
-        img_cv = cv2.cvtColor(self.current_img, cv2.COLOR_RGB2BGR)
+        img_cv = cv2.cvtColor(self.raw_image, cv2.COLOR_RGB2BGR)
         img_width, img_height, a = img_cv.shape
         ratio_img = img_width / img_height
         ratio_scene = self.ui.graphicsView.width() / self.ui.graphicsView.height()
@@ -96,6 +106,7 @@ class AiMain(QMainWindow):
         else:
             width = int(self.ui.graphicsView.height() * ratio_img)
             height = int(self.ui.graphicsView.height())
+        self.dstImg = cv2.cvtColor(img_cv,cv2.COLOR_BGR2RGB)#img_cv
         img_resize = cv2.resize(img_cv, (height - 5, width - 5), interpolation=cv2.INTER_AREA)
         h, w, c = img_resize.shape
         bytesPerLine = w * 3
@@ -107,7 +118,7 @@ class AiMain(QMainWindow):
 
     # 在第二个选框中现实载入的图片
     def show_image_second(self):
-        img_cv = cv2.cvtColor(self.current_img, cv2.COLOR_RGB2BGR)
+        img_cv = cv2.cvtColor(self.raw_image, cv2.COLOR_RGB2BGR)
         img_width, img_height, a = img_cv.shape
         ratio_img = img_width / img_height
         ratio_scene = self.ui.graphicsView_2.width() / self.ui.graphicsView_2.height()
@@ -117,6 +128,7 @@ class AiMain(QMainWindow):
         else:
             width = int(self.ui.graphicsView_2.height() * ratio_img)
             height = int(self.ui.graphicsView_2.height())
+        self.srcImg = cv2.cvtColor(img_cv,cv2.COLOR_BGR2RGB)
         img_resize = cv2.resize(img_cv, (height - 5, width - 5), interpolation=cv2.INTER_AREA)
         h, w, c = img_resize.shape
         bytesPerLine = w * 3
@@ -152,6 +164,9 @@ class AiMain(QMainWindow):
     # TODO: 书写换脸功能核心代码
     def change_face(self):
         """核心代码编辑之后，调用show_image_third()显示即可"""
-        self.show_image_third() #填入结果图片
-        pass
+        # self.dstImg 录入图片后的目的图片，可以对其进行操作
+        # self.srcImg 录入图片后的源图片
+
+
+        self.show_image_third(self.dstImg) #填入结果图片,比如像这样，传入结果图片，就可以显示
 

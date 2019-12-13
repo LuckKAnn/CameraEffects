@@ -8,19 +8,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QLineEdit
 
 import window
 
 
-class LogInMain(QMainWindow):
-    def __init__(self):
-        super(LogInMain,self).__init__()
-        self.ui = window.Ui_MainWindow()
-        self.ui.setupUi(self)
-        # self.init_var()
-        # self.action_connect()
-
+class LogInUi(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -36,7 +29,7 @@ class LogInMain(QMainWindow):
         MainWindow.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         MainWindow.setAcceptDrops(True)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/kunkun/.designer/backup/cam.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("resources/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStatusTip("")
         MainWindow.setAutoFillBackground(False)
@@ -67,6 +60,7 @@ class LogInMain(QMainWindow):
         self.horizontalLayout.addWidget(self.label)
         self.lineEdit = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.lineEdit.setObjectName("lineEdit")
+
         self.horizontalLayout.addWidget(self.lineEdit)
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(380, 40, 321, 41))
@@ -74,7 +68,7 @@ class LogInMain(QMainWindow):
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(420, 100, 201, 161))
-        self.label_3.setStyleSheet("background-image:url(\'icon.png\')")
+        self.label_3.setStyleSheet("background-image:url(\'resources/icon.png\')")
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
@@ -88,6 +82,7 @@ class LogInMain(QMainWindow):
         self.horizontalLayout_2.addWidget(self.label_4)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.horizontalLayoutWidget_2)
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.lineEdit_2.setEchoMode(QLineEdit.Password)
         self.horizontalLayout_2.addWidget(self.lineEdit_2)
         self.radioButton = QtWidgets.QRadioButton(self.centralwidget)
         self.radioButton.setGeometry(QtCore.QRect(730, 460, 115, 19))

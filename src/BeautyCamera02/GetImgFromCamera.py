@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'untitled.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
+"""
+    从摄像头获取照片选框
+"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2

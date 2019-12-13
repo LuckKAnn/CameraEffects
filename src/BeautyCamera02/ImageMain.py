@@ -1,21 +1,17 @@
+"""
+    图像处理主功能函数
+"""
 import math
 import time
 
 import dlib
-from PyQt5 import Qt
 from PyQt5 import QtCore,QtWidgets,QtGui
-import sys
-import PyQt5
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QFileDialog, QGraphicsRectItem, QGraphicsScene, QMainWindow, \
     QMessageBox, QDialog
 from PyQt5.QtGui import QPixmap, QImage, QMouseEvent, QCursor
-from PyQt5.QtCore import QSize, QObject, QPointF
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 from PyQt5.QtCore import pyqtSignal
-from matplotlib.backends.backend_template import FigureCanvas
-
 import  ImgUi as window
 import  AiMain
 import  VideoMain
@@ -38,6 +34,7 @@ class ImageMain(QMainWindow):
         self.origin_image = None
         self.current_img = None
         self.ui = window.Ui_MainWindow()
+        self.detector = dlib.get_frontal_face_detector()
         self.ui.setupUi(self)
         self.init_var()
         self.action_connect()
@@ -88,7 +85,9 @@ class ImageMain(QMainWindow):
         self.ui.horizontalSlider_11.sliderReleased.connect(self.Microdermabrasion)
         # 美白
         self.ui.horizontalSlider_13.sliderReleased.connect(self.Whitening)
-        self.ui.horizontalSlider_2.sliderReleased.connect(self.acneSizeTest)
+
+        # 祛痘魔法棒大小
+        self.ui.horizontalSlider_2.sliderReleased.connect(self.acneSizeChoose)
 
         self.ui.pushButton_10.clicked.connect(self.reset)
 
@@ -98,17 +97,18 @@ class ImageMain(QMainWindow):
         self.ui.pushButton_7.clicked.connect(self.tutoujing)
         self.ui.pushButton.clicked.connect(self.Toacne)
 
-        # self.ui.horizontalSlider_4.valueChanged.connect(self.brightness)
-        # self.ui.horizontalSlider_4.sliderPressed.connect(self.sldDisconnect)
-        # self.ui.horizontalSlider_4.sliderReleased.connect(self.sldReconnect)
-        # self.ui.action_2.triggered.connect(self.save_file)
-        # self.ui.action_5.triggered.connect(self.recover_img)
-        #
-        # # 打开摄像头
-        # self.ui.action_17.triggered.connect(self.new_camera)
-        #
-        # # 标记人脸位置
-        # self.ui.action_18.triggered.connect(self.mark_face)
+        #贴纸
+        self.ui.pushButton_12.clicked.connect(self.tiezhi)
+
+    # 兔耳朵贴纸
+    def tiezhi(self):
+        # self.current_img 当前图片，直接对其进行操作
+        # TODO: 兔耳朵贴纸，图片
+
+        # self.current_img = xxx   #将处理后的结果赋值回去，调用show_image 就可以显示结果了
+        self.show_image() #
+
+
 
 
 
@@ -236,6 +236,7 @@ class ImageMain(QMainWindow):
             # Dialog.exec_()
         except Exception as e:
             print(e)
+
     # 秋日滤镜绑定
     def color_autumn(self):
         self.dialog.close()
@@ -382,22 +383,25 @@ class ImageMain(QMainWindow):
 
 
     # 打开图片
-    def open_file(self):
-        fname = QFileDialog.getOpenFileName(None, '打开文件', './', ("Images (*.png *.xpm *.jpg)"))
-        if fname[0]:
-            img_cv = cv2.imdecode(np.fromfile(fname[0], dtype=np.uint8), -1)  # 注意这里读取的是RGB空间的
-            #
-            # img_cv = cv2.imread(fname[0])
-            self.current_img = img_cv
-            self.origin_image = cv2.imread(fname[0])
-            self.origin_image = cv2.resize(self.origin_image,(375,500))
-            final_img=self.show_image()
-            cv2.imwrite("user.jpg",final_img)
-            canuse = cv2.cvtColor(final_img,cv2.COLOR_BGR2RGB)
-            self.raw_image = canuse
-            self.last_image = canuse
-            self.current_img = canuse
-            self.imgskin = np.zeros(self.raw_image.shape)
+    def open_file(self,videoCapture = 0):
+        if videoCapture == 0:
+            fname = QFileDialog.getOpenFileName(None, '打开文件', './', ("Images (*.png *.xpm *.jpg)"))
+            if fname[0]:
+                img_cv = cv2.imdecode(np.fromfile(fname[0], dtype=np.uint8), -1)  # 注意这里读取的是RGB空间的
+                self.origin_image = cv2.imread(fname[0])
+                self.origin_image = cv2.resize(self.origin_image, (375, 500))
+                #
+            else:
+                return 0
+        else:
+            img_cv = cv2.imread("tempResource.jpg")
+        self.current_img = img_cv
+        final_img=self.show_image()
+        canuse = cv2.cvtColor(final_img,cv2.COLOR_BGR2RGB)
+        self.raw_image = canuse
+        self.last_image = canuse
+        self.current_img = canuse
+        self.imgskin = np.zeros(self.raw_image.shape)
 
 
 
@@ -455,54 +459,46 @@ class ImageMain(QMainWindow):
     def skyRegion(self,picname):
         iLow = np.array([100, 43, 46])
         iHigh = np.array([124, 255, 255])
-        # img = cv2.imread(picname)
         img = picname
-        # imgOriginal = cv2.imread(picname)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        # hsv split
         h, s, v = cv2.split(img)
         cv2.equalizeHist(v)
         hsv = cv2.merge((h, s, v))
         imgThresholded = cv2.inRange(hsv, iLow, iHigh)
-        cv2.imshow("aaa", imgThresholded)
         imgThresholded = cv2.medianBlur(imgThresholded, 9)
-        cv2.imshow("bbb", imgThresholded)
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10, 10))
         Erode_img = cv2.erode(imgThresholded, kernel)
         Dilation_img = cv2.dilate(Erode_img, kernel)
-        # print(tmp)
-        cv2.imshow("xx", Dilation_img)
-        # open
         kernel = np.ones((5, 5), np.uint8)
         imgThresholded = cv2.morphologyEx(imgThresholded, cv2.MORPH_OPEN, kernel, iterations=10)
         imgThresholded = cv2.medianBlur(imgThresholded, 9)
-        cv2.imshow("??", imgThresholded)
+        cv2.imshow("th",imgThresholded)
         return imgThresholded
+
     # 天空背景滤镜
     def sky_Filter(self):
         if self.raw_image is None:
             QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
             return 0
         src_img  = self.origin_image
-        sky_img = cv2.imread('sky.jpg')
+        cv2.imshow("src",src_img)
+        sky_img = cv2.imread('resources/sky.jpg')
         try:
             merge_img = self.Segment(src_img, sky_img)
-
             self.current_img = merge_img
             self.show_image()
         except Exception as e :
             print(e)
+
     # 天空区域合并
     def Segment(self,src, sky_img):
-        mask = self.skyRegion1(src)
+        mask = self.skyRegion(src)
         notmask = cv2.bitwise_not(mask)
-        cv2.imshow("notmask", notmask)
         frontpic = cv2.bitwise_and(src, src, mask=notmask)
-
         sky_resize = cv2.resize(sky_img, (src.shape[1], src.shape[0]))
+        cv2.imshow("resize",sky_resize)
         backimage = cv2.bitwise_and(sky_resize, sky_resize, mask=mask)
         merge_img = cv2.add(backimage, frontpic)
-        cv2.imshow("merge_img", merge_img)
         return merge_img
 
     # 还原
@@ -526,6 +522,7 @@ class ImageMain(QMainWindow):
     # 饱和度
     def saturation(self):
         if self.raw_image is None:
+            QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
             return 0
         # self.current_img = self.raw_image
         value = self.ui.horizontalSlider.value()
@@ -544,8 +541,8 @@ class ImageMain(QMainWindow):
             QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
             return 0
         value = self.ui.horizontalSlider_4.value()
-        # print(value)
-        # self.current_img = self.raw_image
+
+        self.current_img = self.raw_image
         img_hsv = cv2.cvtColor(self.current_img, cv2.COLOR_BGR2HLS)
         if value > 3:
             img_hsv[:, :, 1] = np.log(img_hsv[:, :, 1] / 255 * (value - 1) + 1) / np.log(value + 1) * 255
@@ -557,25 +554,111 @@ class ImageMain(QMainWindow):
 
     # 磨皮
     def Microdermabrasion(self):
+        if self.raw_image is None:
+            QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
+            self.ui.horizontalSlider_11.setValue(0)
+            return 0
         deep =self.ui.horizontalSlider_11.value()
         # blur = cv2.bilateralFilter(self.raw_image,deep,100,15)
         blur = cv2.bilateralFilter(self.raw_image,deep*5,100,15)
-        cv2.imshow("no rui",blur)
+        # cv2.imshow("no rui",blur)
         #模糊之后再进行锐化
         kernel = np.array([[0 ,-1 ,0],
                            [-1 ,5 ,-1],
                            [0 ,-1 ,0]],np.float32)
         dst = cv2.filter2D(blur,-1,kernel= kernel)
-        cv2.imshow("rui",dst)
-        cv2.waitKey(0)
+        self.current_img = dst
+        self.show_image()
 
+
+    # 肤色检测之一: YCrCb之Cr分量 + OTSU二值化
+    def myGetSkin(self,image):
+        img = image
+        ycrcb = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)  # 把图像转换到YUV色域
+        (y, cr, cb) = cv2.split(ycrcb)  # 图像分割, 分别获取y, cr, br通道图像
+
+        # 高斯滤波, cr 是待滤波的源图像数据, (5,5)是值窗口大小, 0 是指根据窗口大小来计算高斯函数标准差
+        cr1 = cv2.GaussianBlur(cr, (5, 5), 0)  # 对cr通道分量进行高斯滤波
+        # 根据OTSU算法求图像阈值, 对图像进行二值化
+        _, skin1 = cv2.threshold(cr1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+        dilation = cv2.dilate(skin1, kernel, iterations=1)
+        skin1 = cv2.erode(dilation, kernel, iterations=1)
+        contours, hierarchy = cv2.findContours(skin1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        len_contour = len(contours)
+        contour_list = []
+        for i in range(len_contour):
+            drawing = np.zeros_like(skin1, np.uint8)  # create a black image
+            img_contour = cv2.drawContours(drawing, contours, i, (255, 255, 255), -1)
+            contour_list.append(img_contour)
+
+        skin1 = sum(contour_list)
+
+
+        backans = np.zeros(img.shape, np.uint8)
+        (x, y) = skin1.shape
+        for i in range(x):
+            for j in range(y):
+                if skin1[i, j] != 0:
+
+                    backans[i][j] = img[i][j]  # 这样做是为了让原图与滤波后的图合成时更准确
+        return backans
+
+
+    # 人脸皮肤美白
+    def faceBrightness(self,beta, img):
+        blank = np.zeros(img.shape, img.dtype)
+        # dst = alpha * img + (1-alpha) * blank + beta
+        dst = cv2.addWeighted(img, 1, blank, 0, beta)
+        return dst
 
     # 美白
     def Whitening(self):
-        pass
+        # 没有图片，则提示先上传图片
+        if self.raw_image is None:
+            self.ui.horizontalSlider_13.setValue(0)
+            QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
+            return 0
+        # 原理: 先进行皮肤检测，皮肤检测之后，进行皮肤检测图的整体美白，整体美白之后，和原图融合
+        try:
+            img = self.current_img
+            img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+            # 人脸数
+            faces = self.detector(img_gray, 0)
+            if len(faces) != 0:
+                # 记录每次开始写入人脸像素的宽度位置
+                for face in faces:
+                    # 绘制矩形框
+                    cv2.rectangle(img, tuple([face.left(), face.top()]), tuple([face.right(), face.bottom()]),
+                                  (0, 255, 255), 2)
+                    ROI = img[face.top():face.bottom(), face.left(): face.right()]
+                    backSkin = self.myGetSkin(ROI)
+                    degree = self.ui.horizontalSlider_13.value() * 2
+                    backSkin = self.faceBrightness(degree, backSkin)
+                    WhiteningImg = np.zeros(ROI.shape, np.uint8)
+                    (x, y, a) = ROI.shape
+                    for i in range(x):
+                        for j in range(y):
+                            if backSkin[i, j, 0] == degree and backSkin[i, j, 1] == degree and backSkin[
+                                i, j, 2] == degree:
+                                WhiteningImg[i][j] = ROI[i][j]
+                            else:
+                                WhiteningImg[i][j] = backSkin[i][j]  # 这样做是为了让原图与滤波后的图合成时更准确
+                    img[face.top():face.bottom(), face.left(): face.right()] = WhiteningImg
+
+            self.current_img = img
+            self.show_image()
+        except Exception as e:
+            print(e)
+
 
     # 祛痘
     def Acne(self):
+        # 没有图片，则提示先上传图片
+        if self.raw_image is None:
+            self.ui.horizontalSlider_2.setValue(0)
+            QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
+            return 0
         self.acneSize = self.ui.horizontalSlider_2.value()
         print(self.acneSize)
         center_x = self.scene.x
@@ -594,7 +677,7 @@ class ImageMain(QMainWindow):
         self.acne = False
         self.show_image()
 
-    def acneSizeTest(self):
+    def acneSizeChoose(self):
         if self.raw_image is None :
             self.ui.horizontalSlider_2.setValue(0)
             QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
@@ -603,24 +686,43 @@ class ImageMain(QMainWindow):
 
     # 人脸识别
     def detect_face(self):
-        img = self.current_img
-        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        # 没有图片，则提示先上传图片
+        if self.raw_image is None:
+            QMessageBox().information(self, "提示", "请先录入图像！", QMessageBox.Yes)
+            return 0
 
-        # 人脸分类器
-        detector = dlib.get_frontal_face_detector()
-        # 获取人脸检测器
-        predictor = dlib.shape_predictor(
-            "./face/shape_predictor_68_face_landmarks.dat"
-        )
-        dets = detector(gray, 1)
-        for face in dets:
-            # 在图片中标注人脸，并显示
-            left = face.left()
-            top = face.top()
-            right = face.right()
-            bottom = face.bottom()
-            cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
-            cv2.imshow("image", img)
+        #人脸图像 ，可以直接对img操作
+        img = self.current_img
+
+        img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+        # 人脸数
+        faces = self.detector(img_gray, 0)
+        ROI = None
+        if len(faces) != 0:
+            # 记录每次开始写入人脸像素的宽度位置
+            faces_start_width = 0
+            for face in faces:
+                # 绘制矩形框
+                cv2.rectangle(img, tuple([face.left(), face.top()]), tuple([face.right(), face.bottom()]),
+                              (0, 255, 255), 2)
+        self.current_img = img
+        self.show_image()
+                # ROI = img[face.top():face.bottom(), face.left(): face.right()]
+        # except Exception as e:
+        #     print(e)
+        # finally:
+        #         img[face.top():face.bottom(), face.left(): face.right()] =
+
+
+        # 完成功能之后，假设将图像赋予以下ans调用即可显示
+        # self.current_img = ans
+        # self.show_image()
+
+
+
+
+
 
 
     # 调用摄像头窗口
@@ -641,12 +743,13 @@ class ImageMain(QMainWindow):
     def get_image(self):
         if self.ui_2.image is not None:
             self.ui_2.captured_image = self.ui_2.image
-            cv2.imwrite("testkk.jpg",self.ui_2.captured_image)
-            self.raw_image = self.ui_2.captured_image
-            self.current_img = self.ui_2.captured_image
-            self.show_image()
-            self.imgskin = np.zeros(self.raw_image.shape)
-            self.intial_value()
+            cv2.imwrite("tempResource.jpg",self.ui_2.captured_image)
+            self.open_file(1)
+            # self.raw_image = self.ui_2.captured_image
+            # self.current_img = self.ui_2.captured_image
+            # self.show_image()
+            # self.imgskin = np.zeros(self.raw_image.shape)
+            # self.intial_value()
             # QMessageBox().information(self, "提示", "图片录入成功！", QMessageBox.Yes)
             self.dialog.close()
 

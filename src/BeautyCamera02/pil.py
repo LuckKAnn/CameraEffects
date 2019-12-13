@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'pil.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
+"""
+    PIL滤镜选框
+"""
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -40,20 +38,20 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(40, 150, 300, 300))
         self.label.setText("")
         self.label.setScaledContents(True)
-        self.label.setPixmap(QPixmap("pil_img/CONTOUR.png"))
+        self.label.setPixmap(QPixmap("resources/pil_img/CONTOUR.png"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(390, 150, 300, 300))
         self.label_2.setText("")
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
-        self.label_2.setPixmap(QPixmap("pil_img/EDGE_ENHANCE_MORE.png"))
+        self.label_2.setPixmap(QPixmap("resources/pil_img/EDGE_ENHANCE_MORE.png"))
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(740, 150, 300, 300))
         self.label_3.setText("")
         self.label_3.setScaledContents(True)
         self.label_3.setObjectName("label_3")
-        self.label_3.setPixmap(QPixmap("pil_img/EMBOSS.png"))
+        self.label_3.setPixmap(QPixmap("resources/pil_img/EMBOSS.png"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1117, 26))

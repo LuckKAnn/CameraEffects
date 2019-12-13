@@ -12,7 +12,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
+    <width>1076</width>
     <height>784</height>
    </rect>
   </property>
@@ -82,7 +82,7 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>210</x>
       <y>200</y>
       <width>531</width>
       <height>121</height>
@@ -104,7 +104,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>360</x>
       <y>10</y>
       <width>321</width>
       <height>41</height>
@@ -120,10 +120,10 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>400</x>
       <y>50</y>
       <width>201</width>
-      <height>161</height>
+      <height>171</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -136,8 +136,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>290</y>
+      <x>210</x>
+      <y>280</y>
       <width>531</width>
       <height>91</height>
      </rect>
@@ -158,8 +158,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>670</y>
+      <x>260</x>
+      <y>640</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -174,8 +174,8 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>670</y>
+      <x>570</x>
+      <y>640</y>
       <width>111</width>
       <height>51</height>
      </rect>
@@ -190,8 +190,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>380</y>
+      <x>210</x>
+      <y>370</y>
       <width>531</width>
       <height>41</height>
      </rect>
@@ -212,8 +212,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>420</y>
+      <x>210</x>
+      <y>410</y>
       <width>531</width>
       <height>41</height>
      </rect>
@@ -234,8 +234,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>470</y>
+      <x>220</x>
+      <y>460</y>
       <width>521</width>
       <height>89</height>
      </rect>
@@ -256,10 +256,10 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>580</y>
+      <x>280</x>
+      <y>560</y>
       <width>431</width>
-      <height>41</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -270,6 +270,71 @@
      <string>* 注意事项: XXXXXXXXXXXXX</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>240</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>320</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>380</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>420</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>470</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -277,7 +342,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>537</width>
+     <width>1076</width>
      <height>26</height>
     </rect>
    </property>
@@ -319,16 +384,8 @@
     <addaction name="action_17"/>
     <addaction name="action_18"/>
    </widget>
-   <widget class="QMenu" name="menu_3">
-    <property name="title">
-     <string>帮助</string>
-    </property>
-    <addaction name="action_19"/>
-    <addaction name="action_20"/>
-   </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
-   <addaction name="menu_3"/>
    <addaction name="menu_5"/>
   </widget>
   <action name="action">
