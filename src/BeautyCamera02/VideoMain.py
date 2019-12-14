@@ -274,7 +274,7 @@ class VideoMain(QMainWindow):
         self.ui.graphicsView.setScene(self.scene)
         # self.label_show_camera.setPixmap(QtGui.QPixmap.fromImage(showImage))  # 往显示视频的Label里 显示QImage
 
-   
+
     def tiezhi(self):
         img = self.image #img对象就为当前视频的帧，直接对其进行操作即可
         # TODO: 视频兔耳朵贴纸 可以使用video下的视频文件进行处理，也可以用摄像头处理
