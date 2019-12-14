@@ -10,6 +10,6 @@ from VideoMain import VideoMain
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    mainWindow =LoginInMain()
+    mainWindow =ImageMain()
     mainWindow.show()
     sys.exit(app.exec_())
